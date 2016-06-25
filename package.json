@@ -1,0 +1,19 @@
+{
+  "name": "behavior-driven-shopping-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "/node_modules/mocha/bin/_mocha -w ./test/test.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VincentNewkirk/behavior-driven-shopping-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VincentNewkirk/behavior-driven-shopping-list/issues"
+  },
+  "homepage": "https://github.com/VincentNewkirk/behavior-driven-shopping-list#readme"
+}
