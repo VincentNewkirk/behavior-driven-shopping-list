@@ -10,21 +10,25 @@ var ShoppingList = function() {
   };
 
   this.removeItem = function ( itemObj ){
+      console.log(itemObj, this.items.length);
 
     if( itemObj === undefined ) {
       if( this.items.length > 0 ){
         this.items.pop();
       }
-    } else if ( this.items.indexOf( itemObj ) !== -1 ){
+    } else if ( itemObj instanceof ShoppingListItem === false || this.items.indexOf(itemObj) === -1){
+      throw new Error('Error');
+    } else if ( this.items.indexOf( itemObj ) !== -1 && itemObj instanceof ShoppingListItem ){
       this.items.splice(this.items.indexOf(itemObj), 1);
     }
+  };
 
-    // if( this.items.indexOf(itemObj) === -1 || itemObj instanceof ShoppingListItem === false ){
-    //   throw new Error('Error');
-    // } else if( this.items.indexOf(itemObj) !== -1){
-    //   this.items.splice(this.items.indexOf(itemObj), 1);
-    // } else if( itemObj === undefined ){
-    //   this.items.pop();
-    // }
+  this.render = function(){
+    var theString = '';
+    for(var i = 0; i < this.items.length; i ++ ){
+      theString += this.items[i].render();
+    }
+    console.log('<ul>' + theString + '</ul>');
+    return '<ul>' + theString + '</ul>';
   };
 };

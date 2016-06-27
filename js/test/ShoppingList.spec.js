@@ -59,10 +59,11 @@ describe('ShoppingListItem', function() {
     expect(testItem.render()).to.be.a('string');
   });
   it('Should return an HTML string wrapped in tags.',function(){
-    testItem.render().should.equal('<li class="completed_false"><span>Curry</span><span>Dinner for tomorrow night</span></li>');
+    testItem.render().should.equal(`<li class="completed_false"><span>Curry</span><span>Dinner for tomorrow night</span></li>`);
   });
 
   });
+
 });
 
 //Shopping List
@@ -105,7 +106,7 @@ describe('ShoppingList', function() {
       testItemList.items[0].should.be.an('object');
       testItemList.items[0].name.should.equal('Beer');
       testItemList.items.should.not.contain('Bottle');
-      expect(testItemList.addItem.bind('Bottle')).to.throw('Error');
+      expect(testItemList.addItem.bind(testItemList, 'Bottle')).to.throw('Error');
       testItemList.items.length.should.equal(2);
       testItemList.items[1].name.should.equal('Lays');
       });
@@ -116,8 +117,8 @@ describe('ShoppingList', function() {
       testItemList.should.have.property('removeItem');
       testItemList.removeItem.should.be.a('function');
     });
-    it('"removeItem" should accept a single ShoppingListItem argument',function(){
-    });
+    // it('"removeItem" should accept a single ShoppingListItem argument',function(){
+    // });
     it('Should remove Object passed in from the items array', function () {
       testItemList.addItem(beer);
       testItemList.addItem(chips);
@@ -141,22 +142,23 @@ describe('ShoppingList', function() {
       testItemList.items.should.be.empty;
     });
 
-    // it('Invoking the removeItem method with no parameters should remove the last item in the items list, if there are any items, else it does nothing', function (done) {
-    //   var beers = new ShoppingListItem('Booze', 'Get buss');
-    //   var gyoza = new ShoppingListItem('Gyoza', 'Get full');
+    it('Should throw and error if argument passed in is not a ShoppingListItem', function () {
+      expect(testItemList.removeItem.bind(testItemList,'Bottle')).to.throw('Error');
+    });
+    it('Should throw an error if argument passed in is not in items array', function () {
+      expect(testItemList.removeItem.bind(testItemList, chips)).to.throw('Error');
+    });
+  });
+  describe('render', function(){
+    it('ShoppingList should have a method named "render"', function () {
+      testItemList.should.have.property('render');
+      testItemList.render.should.be.a('function');
+    });
+    it('Should concatenate the string from calling render() on each ShoppingListItem in the items array and return it as a string', function () {
+      testItemList.addItem(beer);
+      testItemList.addItem(chips);
 
-    //   testItem.addItem(beers);
-    //   testItem.addItem(gyoza);
-    //   testItem.removeItem(beers);
-    //   testItem.item.should.not.contain(beers);
-    //   testItem.items[0].should.equal(gyoza);
-    //   testItem.removeItem();
-    //   expect(testItem.items).to.be.empty;
-    //   // testItem.removeItem();
-    //   // expect(testItem.items).to.be.empty;
-    // });
-    // it('If the argument passed is not an instance of ShoppingList object that is in the "items" array, an error should be thrown', function(){
-    //   expect(testItem.removeItem.bind('Bottle')).to.throw('Error');
-    // });
+      expect(testItemList.render()).to.equal(`<ul><li class="completed_false"><span>Beer</span><span>Party</span></li><li class="completed_false"><span>Lays</span><span>Snack</span></li></ul>`);
+    });
   });
 });
