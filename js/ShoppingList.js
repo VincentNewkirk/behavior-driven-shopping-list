@@ -10,12 +10,21 @@ var ShoppingList = function() {
   };
 
   this.removeItem = function ( itemObj ){
-    if( this.items.indexOf(itemObj) === -1 || itemObj instanceof ShoppingListItem === false ){
-      throw new Error('Error');
-    } else if( this.items.indexOf(itemObj) !== -1){
+
+    if( itemObj === undefined ) {
+      if( this.items.length > 0 ){
+        this.items.pop();
+      }
+    } else if ( this.items.indexOf( itemObj ) !== -1 ){
       this.items.splice(this.items.indexOf(itemObj), 1);
-    } else if( itemObj === undefined ){
-      this.items.pop();
     }
+
+    // if( this.items.indexOf(itemObj) === -1 || itemObj instanceof ShoppingListItem === false ){
+    //   throw new Error('Error');
+    // } else if( this.items.indexOf(itemObj) !== -1){
+    //   this.items.splice(this.items.indexOf(itemObj), 1);
+    // } else if( itemObj === undefined ){
+    //   this.items.pop();
+    // }
   };
 };

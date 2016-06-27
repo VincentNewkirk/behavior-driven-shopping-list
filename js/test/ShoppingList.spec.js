@@ -67,72 +67,96 @@ describe('ShoppingListItem', function() {
 
 //Shopping List
 describe('ShoppingList', function() {
-  var testItem;
+  var testItemList;
+  var beer;
+  var chips;
 
   beforeEach( function(){
-    testItem = new ShoppingList();
+    testItemList = new ShoppingList();
+    beer = new ShoppingListItem('Beer', 'Party');
+    chips = new ShoppingListItem('Lays', 'Snack');
   });
 
   it('Should be a class constructor', function() {
     ShoppingList.should.exist;
-    expect(testItem).to.be.an.instanceOf(ShoppingList);
+    expect(testItemList).to.be.an.instanceOf(ShoppingList);
   });
 
   //PROPERTIES
   it('Should have a property name "items"', function() {
-    testItem.should.have.property('items');
+    testItemList.should.have.property('items');
   });
   it('"items" should be an empty array', function() {
-    expect(testItem.items).to.be.empty;
+    expect(testItemList.items).to.be.empty;
   });
 
   //METHODS
   describe('"addItem"', function () {
     it('Should have a method named "addItem"',function(){
-      testItem.should.have.property('addItem');
-      testItem.addItem.should.be.a('function');
+      testItemList.should.have.property('addItem');
+      testItemList.addItem.should.be.a('function');
     });
     it('Should add a ShoppingList object to the items array. It should NOT be able to addItem if it is not a ShoppingList object', function(){
       var beer = new ShoppingListItem('Beer', 'Party');
       var chips = new ShoppingListItem('Lays', 'Snack');
-      testItem.addItem(beer);
-      testItem.addItem(chips);
+      testItemList.addItem(beer);
+      testItemList.addItem(chips);
 
-      testItem.items[0].should.be.an('object');
-      testItem.items[0].name.should.equal('Beer');
-      testItem.items.should.not.contain('Bottle');
-      expect(testItem.addItem.bind('Bottle')).to.throw('Error');
-      testItem.items.length.should.equal(2);
-      testItem.items[1].name.should.equal('Lays');
+      testItemList.items[0].should.be.an('object');
+      testItemList.items[0].name.should.equal('Beer');
+      testItemList.items.should.not.contain('Bottle');
+      expect(testItemList.addItem.bind('Bottle')).to.throw('Error');
+      testItemList.items.length.should.equal(2);
+      testItemList.items[1].name.should.equal('Lays');
       });
   });
+
   describe('"removeItem"', function () {
     it('Should have a method "removeItem"', function(){
-      testItem.should.have.property('removeItem');
-      testItem.removeItem.should.be.a('function');
+      testItemList.should.have.property('removeItem');
+      testItemList.removeItem.should.be.a('function');
     });
     it('"removeItem" should accept a single ShoppingListItem argument',function(){
     });
-    it('Should remove Object passed in from the items array', function (done) {
-      var beers = new ShoppingListItem('Booze', 'Get buss');
-      testItem.addItem(beers);
-      testItem.removeItem(beers);
-      testItem.items.should.not.contain('Booze', 'Get buss');
+    it('Should remove Object passed in from the items array', function () {
+      testItemList.addItem(beer);
+      testItemList.addItem(chips);
+      testItemList.removeItem(beer);
+
+      testItemList.items[0].name.should.equal('Lays');
+      testItemList.items.should.not.contain(beer);
     });
-    it('Invoking the removeItem method with no parameters should remove the last item in the items list, if there are any items, else it does nothing', function (done) {
-      var beers = new ShoppingListItem('Booze', 'Get buss');
-      var gyoza = new ShoppingListItem('Gyoza', 'Get full');
-      testItem.addItem(beers);
-      testItem.addItem(gyoza);
-      testItem.removeItem(beers);
-      testItem.items[0].name.should.equal('Gyoza');
-      testItem.removeItem();
-      expect(testItem.items).to.be.empty;
-      // testItem.removeItem();
-      // expect(testItem.items).to.be.empty;
+
+    it('If no argument is passed it should remove last item in the array. If array is empty, it should do nothing' , function(){
+      testItemList.addItem(beer);
+      testItemList.addItem(chips);
+      testItemList.removeItem();
+
+      testItemList.items.should.not.contain(chips);
+
+      testItemList.removeItem();
+      testItemList.items.should.be.empty;
+
+      testItemList.removeItem();
+      testItemList.items.should.be.empty;
     });
-    it('If the argument passed is not an instance of ShoppingList object that is in the "items" array, an error should be thrown', function(){
-      expect(testItem.removeItem.bind('Bottle')).to.throw('Error');
-    });
+
+    // it('Invoking the removeItem method with no parameters should remove the last item in the items list, if there are any items, else it does nothing', function (done) {
+    //   var beers = new ShoppingListItem('Booze', 'Get buss');
+    //   var gyoza = new ShoppingListItem('Gyoza', 'Get full');
+
+    //   testItem.addItem(beers);
+    //   testItem.addItem(gyoza);
+    //   testItem.removeItem(beers);
+    //   testItem.item.should.not.contain(beers);
+    //   testItem.items[0].should.equal(gyoza);
+    //   testItem.removeItem();
+    //   expect(testItem.items).to.be.empty;
+    //   // testItem.removeItem();
+    //   // expect(testItem.items).to.be.empty;
+    // });
+    // it('If the argument passed is not an instance of ShoppingList object that is in the "items" array, an error should be thrown', function(){
+    //   expect(testItem.removeItem.bind('Bottle')).to.throw('Error');
+    // });
   });
 });
