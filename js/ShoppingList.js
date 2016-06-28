@@ -25,7 +25,7 @@ var ShoppingList = function() {
   this.render = function(){
     var theString = '';
     for(var i = 0; i < this.items.length; i ++ ){
-      theString += this.items[i].render();
+      theString += this.items[i].render(i);
     }
     return '<ul>' + theString + '</ul>';
   };
