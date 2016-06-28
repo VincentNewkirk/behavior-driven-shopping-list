@@ -10,7 +10,6 @@ var ShoppingList = function() {
   };
 
   this.removeItem = function ( itemObj ){
-      console.log(itemObj, this.items.length);
 
     if( itemObj === undefined ) {
       if( this.items.length > 0 ){
@@ -28,7 +27,6 @@ var ShoppingList = function() {
     for(var i = 0; i < this.items.length; i ++ ){
       theString += this.items[i].render();
     }
-    console.log('<ul>' + theString + '</ul>');
     return '<ul>' + theString + '</ul>';
   };
 };

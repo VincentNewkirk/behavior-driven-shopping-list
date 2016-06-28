@@ -59,7 +59,7 @@ describe('ShoppingListItem', function() {
     expect(testItem.render()).to.be.a('string');
   });
   it('Should return an HTML string wrapped in tags.',function(){
-    testItem.render().should.equal(`<li class="completed_false"><span>Curry</span><span>Dinner for tomorrow night</span></li>`);
+    testItem.render().should.equal(`<li class="completed_false"><span>Curry</span>&nbsp;<span>Dinner for tomorrow night</span></li>`);
   });
 
   });
@@ -158,7 +158,7 @@ describe('ShoppingList', function() {
       testItemList.addItem(beer);
       testItemList.addItem(chips);
 
-      expect(testItemList.render()).to.equal(`<ul><li class="completed_false"><span>Beer</span><span>Party</span></li><li class="completed_false"><span>Lays</span><span>Snack</span></li></ul>`);
+      expect(testItemList.render()).to.equal(`<ul><li class="completed_false"><span>Beer</span>&nbsp;<span>Party</span></li><li class="completed_false"><span>Lays</span><span>Snack</span></li></ul>`);
     });
   });
 });

@@ -12,6 +12,6 @@ var ShoppingListItem = function(name, description){
   };
 
   this.render = function() {
-    return `<li class="completed_${this.is_done}"><span>${this.name}</span><span>${this.description}</span></li>`;
+    return `<li class="completed_${this.is_done}"><span>${this.name}</span>&nbsp;<span>${this.description}</span></li>`;
   };
 };
