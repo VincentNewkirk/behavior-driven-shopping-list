@@ -13,10 +13,16 @@ function add_to_shopping_list(event){
 document.getElementById('add_shopping_list_item_button').addEventListener('click', add_to_shopping_list);
 
 function changeCheckedStatus(idx, checkbox){
-    if( checkbox.checked ){
-      appList.items[idx].check();
+  if( checkbox.checked ){
+    appList.items[idx].check();
   } else {
     appList.items[idx].uncheck();
   }
+}
+
+function removeItemButtonClicked(idx){
+  var removeThis = appList.items[idx];
+  appList.removeItem(removeThis);
+  divContent.innerHTML = appList.render();
 }
 

@@ -15,6 +15,7 @@ var ShoppingListItem = function(name, description){
     return `<li class="completed_${this.is_done}">
     <span>${this.name}</span>
     <span>${this.description}</span>
-    </li><input type="checkbox" class="myCheckbox" onchange="changeCheckedStatus(${index}, this)">`;
+    </li><input type="checkbox" class="myCheckbox" onchange="changeCheckedStatus(${index}, this)">
+    <button type="button" id="clearButton" onclick="removeItemButtonClicked(${index})">X</button>`;
   };
 };
